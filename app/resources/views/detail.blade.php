@@ -3,6 +3,7 @@
 @section('content')
     <div class="container-lg container-fluid">
         <div class="card" style="width: 28rem;">
+
             <img src="{{Storage::url($film->img_url)}}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{$film->title}}</h5>

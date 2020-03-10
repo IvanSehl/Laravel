@@ -13,14 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
-Route::get('/profile', 'HomeController@profile');
-Route::post('/profile/update', 'HomeController@update_profile');
 
 Route::get('/films', 'FilmController@show_all');
 Route::get('/', 'FilmController@show_all');
@@ -31,6 +24,7 @@ Route::post('/favorite/delete', 'FilmController@favorite_delete');
 Route::get('/films/{id}', 'FilmController@detail');
 Route::post('/films/{id}/add', 'FilmController@detail_add');
 
-
+Route::get('/profile', 'HomeController@profile');
+Route::post('/profile', 'HomeController@update_prof')->name('profile.update');
 
 

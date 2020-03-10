@@ -1,6 +1,7 @@
 @extends('layouts.film')
 
 @section('content')
+
 <h2>Category</h2>
 
 @foreach ($categories as $elem)

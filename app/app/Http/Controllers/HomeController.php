@@ -28,18 +28,31 @@ class HomeController extends Controller
     {   
         return view('profile');
     }
-    public function update_profile() {
-            DB::table('users')
-                    ->where('id', Auth::user()->id)
-                    ->update(['phone' => $_POST['phone'],
-                            'name' => $_POST['name'],
-                            'email' => $_POST['email'],
-                            'd_o_b' => $_POST['d_o_b'],
-                            'password' => Hash::make($_POST['password'])]
-                        ); 
 
-        return redirect('/profile');                  
+    public function update_prof(Request $request) 
+    {
+        $request->validate([
+            'phone' => 'required|min:8|numeric',
+            'name' => 'required|min:3|max:16',
+            'email' => 'required|max:255|email',
+            'd_o_b' => 'required|max:255',
+            'password' => 'required|min:4',
+        ]);
+
+        DB::table('users')
+                    ->where('id', Auth::user()->id)
+                    ->update([
+                        'phone' => $request['phone'],
+                        'name' => $request['name'],
+                        'email' => $request['email'],
+                        'd_o_b' => $request['d_o_b'],
+                        'password' => Hash::make($request['password']),
+                    ]);
+
+        return redirect('/profile'); 
+
     }
+    
 
     
 }

@@ -2,8 +2,18 @@
 
 @section('content')
     <div class="container-md">
+        <div class="card-body">
+            @if ($errors->any())
+              <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+              </div><br />
+            @endif
         <h1>Profile info</h1>
-        <form method="post" action="/profile/update">
+        <form method="post" action="{{ route('profile.update') }}">
         @csrf
             <div class="form-group col-md-4">
                 <label for="name">Name</label>
