@@ -13,18 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', 'Filmcontroller@index');
+
 Auth::routes();
 
-Route::get('/films', 'FilmController@show_all');
-Route::get('/', 'FilmController@show_all');
+Route::get('/films', 'Filmcontroller@index');
+Route::get('/films/{category}', 'Filmcontroller@show_by_category');
 
-Route::get('/favorite', 'FilmController@favorite');
-Route::post('/favorite/delete', 'FilmController@favorite_delete');
+Route::get('/films/{category}/{film_id}', 'Filmcontroller@show');
+Route::post('/films/{category}/{film_id}', 'Filmcontroller@store');
 
-Route::get('/films/{id}', 'FilmController@detail');
-Route::post('/films/{id}/add', 'FilmController@detail_add');
+Route::get('/profile', 'UserController@index');
+Route::post('/profile', 'UserController@store');
 
-Route::get('/profile', 'HomeController@profile');
-Route::post('/profile', 'HomeController@update_prof')->name('profile.update');
-
+Route::get('/favorites', 'FavoriteController@index');
+Route::post('/favorites', 'FavoriteController@destroy');
 

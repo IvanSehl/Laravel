@@ -8,8 +8,6 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Mail\WelcomeMail;
-use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -31,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'favorite';
+    protected $redirectTo = 'favorites';
 
     /**
      * Create a new controller instance.
@@ -51,10 +49,10 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return Validator::make($data, [            
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'string', 'min:8', 'max:13'],
-            'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'phone' => ['required'],
+            'password' => ['required', 'string', 'min:1', 'confirmed'],
         ]);
     }
 
@@ -66,13 +64,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user =  User::create([            
-            'email' => $data['email'],
-            'phone' => $data['phone'],
+        // dd($data['phone']);
+        return User::create([  
+            'phone' => $data['phone'],          
+            'email' => $data['email'],            
             'password' => Hash::make($data['password']),
         ]);
-        Mail::to($data['email'])->send(new WelcomeMail($user));
-            
-        return $user;
     }
 }
